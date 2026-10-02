@@ -4,7 +4,6 @@ import { FEATURED_COLLECTIONS } from '../data/mockData';
 
 export function FeaturedCollections({ onSelectCollection }) {
   const [showAll, setShowAll] = useState(false);
-  const displayedCollections = showAll ? FEATURED_COLLECTIONS : FEATURED_COLLECTIONS.slice(0, 4);
 
   return (
     <section style={{ padding: '52px 0', background: 'var(--bg-body)', width: '100%', overflow: 'hidden' }}>
@@ -32,11 +31,11 @@ export function FeaturedCollections({ onSelectCollection }) {
           gap: '20px',
           width: '100%'
         }}>
-          {displayedCollections.map(collection => (
+          {FEATURED_COLLECTIONS.map((collection, idx) => (
             <div
               key={collection.id}
               onClick={() => onSelectCollection(collection)}
-              className="nn-card"
+              className={`nn-card ${idx >= 4 && !showAll ? 'mobile-hide-item' : ''}`}
               style={{
                 cursor: 'pointer',
                 borderRadius: '18px',
@@ -126,9 +125,9 @@ export function FeaturedCollections({ onSelectCollection }) {
           ))}
         </div>
 
-        {/* Centered Read More / Show More Button */}
+        {/* Centered Read More / Show More Button (Mobile only) */}
         {FEATURED_COLLECTIONS.length > 4 && (
-          <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', marginTop: '32px', width: '100%' }}>
+          <div className="mobile-read-more-wrapper" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', marginTop: '32px', width: '100%' }}>
             <button
               onClick={() => setShowAll(!showAll)}
               className="btn-secondary"

@@ -4,7 +4,6 @@ import { POPULAR_BRANDS } from '../data/mockData';
 
 export function BrandsSection({ onSelectBrand }) {
   const [showAll, setShowAll] = useState(false);
-  const displayedBrands = showAll ? POPULAR_BRANDS : POPULAR_BRANDS.slice(0, 4);
 
   return (
     <section style={{ padding: '52px 0', background: 'var(--bg-body)' }}>
@@ -31,11 +30,11 @@ export function BrandsSection({ onSelectBrand }) {
           gridTemplateColumns: 'repeat(auto-fill, minmax(200px, 1fr))',
           gap: '16px'
         }}>
-          {displayedBrands.map(brand => (
+          {POPULAR_BRANDS.map((brand, idx) => (
             <div
               key={brand.name}
               onClick={() => onSelectBrand(brand.name)}
-              className="nn-card"
+              className={`nn-card ${idx >= 4 && !showAll ? 'mobile-hide-item' : ''}`}
               style={{
                 cursor: 'pointer',
                 padding: '20px',
@@ -76,9 +75,9 @@ export function BrandsSection({ onSelectBrand }) {
           ))}
         </div>
 
-        {/* Centered Read More / Show More Button */}
+        {/* Centered Read More / Show More Button (Mobile only) */}
         {POPULAR_BRANDS.length > 4 && (
-          <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', marginTop: '32px', width: '100%' }}>
+          <div className="mobile-read-more-wrapper" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', marginTop: '32px', width: '100%' }}>
             <button
               onClick={() => setShowAll(!showAll)}
               className="btn-secondary"

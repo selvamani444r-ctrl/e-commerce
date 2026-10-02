@@ -13,8 +13,6 @@ export function RecentlyViewed({
     return null;
   }
 
-  const displayedViewed = showAll ? recentlyViewed : recentlyViewed.slice(0, 4);
-
   return (
     <section style={{ padding: '44px 0', background: 'var(--bg-body)', borderTop: '1px solid var(--border-light)' }}>
       <div className="container-marketplace">
@@ -56,12 +54,12 @@ export function RecentlyViewed({
           gridTemplateColumns: 'repeat(auto-fill, minmax(220px, 1fr))',
           gap: '16px'
         }}>
-          {displayedViewed.map(product => {
+          {recentlyViewed.map((product, idx) => {
             const bestMerchant = product.merchants?.find(m => m.isBestPrice) || product.merchants?.[0];
             return (
               <div
                 key={product.id}
-                className="nn-card"
+                className={`nn-card ${idx >= 4 && !showAll ? 'mobile-hide-item' : ''}`}
                 style={{
                   padding: '14px',
                   display: 'flex',
@@ -133,9 +131,9 @@ export function RecentlyViewed({
           })}
         </div>
 
-        {/* Centered Read More / Show More Button */}
+        {/* Centered Read More / Show More Button (Mobile only) */}
         {recentlyViewed.length > 4 && (
-          <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', marginTop: '28px', width: '100%' }}>
+          <div className="mobile-read-more-wrapper" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', marginTop: '28px', width: '100%' }}>
             <button
               onClick={() => setShowAll(!showAll)}
               className="btn-secondary"

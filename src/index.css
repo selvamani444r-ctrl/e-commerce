@@ -700,3 +700,18 @@ button {
     gap: 8px !important;
   }
 }
+
+/* PC vs Mobile Item Visibility & Read-More Controls */
+@media (max-width: 768px) {
+  /* On mobile phones, items flagged with mobile-hide-item are collapsed to 4 items */
+  .mobile-hide-item {
+    display: none !important;
+  }
+}
+
+@media (min-width: 769px) {
+  /* On desktop/PC, full grids are completely filled (zero empty space), so mobile read-more buttons are hidden */
+  .mobile-read-more-wrapper {
+    display: none !important;
+  }
+}

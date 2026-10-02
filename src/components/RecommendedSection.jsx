@@ -35,8 +35,6 @@ export function RecommendedSection({
     recommended = Array.from(new Set([...recommended, ...extra]));
   }
 
-  const displayedList = showAll ? recommended : recommended.slice(0, 4);
-
   return (
     <section style={{ padding: '52px 0', background: 'var(--bg-body)', width: '100%', overflow: 'hidden' }}>
       <div className="container-marketplace">
@@ -63,10 +61,11 @@ export function RecommendedSection({
           gap: '20px',
           width: '100%'
         }}>
-          {displayedList.map(product => (
+          {recommended.map((product, idx) => (
             <ProductCard
               key={product.id}
               product={product}
+              className={idx >= 4 && !showAll ? 'mobile-hide-item' : ''}
               onSelectProduct={onSelectProduct}
               onViewDeal={onViewDeal}
               isWishlisted={wishlist.some(w => w.id === product.id)}
@@ -78,9 +77,9 @@ export function RecommendedSection({
           ))}
         </div>
 
-        {/* Centered Read More / Show More Button */}
+        {/* Centered Read More / Show More Button (Mobile only) */}
         {recommended.length > 4 && (
-          <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', marginTop: '32px', width: '100%' }}>
+          <div className="mobile-read-more-wrapper" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', marginTop: '32px', width: '100%' }}>
             <button
               onClick={() => setShowAll(!showAll)}
               className="btn-secondary"

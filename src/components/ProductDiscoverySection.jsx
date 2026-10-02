@@ -503,10 +503,11 @@ export function ProductDiscoverySection({
                     : '1fr',
                   gap: '20px'
                 }}>
-                  {sortedProducts.slice(0, visibleCount).map(product => (
+                  {sortedProducts.map((product, idx) => (
                     <ProductCard
                       key={product.id}
                       product={product}
+                      className={idx >= visibleCount ? 'mobile-hide-item' : ''}
                       onSelectProduct={onSelectProduct}
                       onViewDeal={onViewDeal}
                       isWishlisted={wishlist.some(w => w.id === product.id)}
@@ -518,9 +519,9 @@ export function ProductDiscoverySection({
                   ))}
                 </div>
 
-                {/* Centered Read More / Show Less Button */}
+                {/* Centered Read More / Show Less Button (Mobile Only) */}
                 {sortedProducts.length > 4 && (
-                  <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '12px', flexWrap: 'wrap', marginTop: '36px', width: '100%' }}>
+                  <div className="mobile-read-more-wrapper" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '12px', flexWrap: 'wrap', marginTop: '36px', width: '100%' }}>
                     {visibleCount < sortedProducts.length ? (
                       <button
                         onClick={() => setVisibleCount(prev => prev + 4)}

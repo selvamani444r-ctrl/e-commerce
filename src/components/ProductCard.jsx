@@ -9,7 +9,8 @@ export function ProductCard({
   onToggleWishlist,
   isCompared,
   onToggleCompare,
-  onOpenPriceAlert
+  onOpenPriceAlert,
+  className = ''
 }) {
   const bestMerchant = product.merchants?.find(m => m.isBestPrice) || product.merchants?.[0] || {
     name: 'Online Retailer',
@@ -20,7 +21,7 @@ export function ProductCard({
   const savings = (product.originalPrice || 0) - (product.price || 0);
 
   return (
-    <div className="nn-product-card">
+    <div className={`nn-product-card ${className}`}>
       {/* Top Image Section */}
       <div className="product-img-wrapper" onClick={() => onSelectProduct(product)} style={{ cursor: 'pointer' }}>
         <img

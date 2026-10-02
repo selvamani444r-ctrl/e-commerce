@@ -4,7 +4,6 @@ import { CATEGORIES_DATA } from '../data/mockData';
 
 export function CategorySection({ onSelectCategory, selectedCategory }) {
   const [showAll, setShowAll] = useState(false);
-  const displayedCategories = showAll ? CATEGORIES_DATA : CATEGORIES_DATA.slice(0, 4);
 
   return (
     <section style={{ padding: '56px 0', background: 'var(--bg-body)' }}>
@@ -48,13 +47,13 @@ export function CategorySection({ onSelectCategory, selectedCategory }) {
           gridTemplateColumns: 'repeat(auto-fill, minmax(200px, 1fr))',
           gap: '16px'
         }}>
-          {displayedCategories.map((cat) => {
+          {CATEGORIES_DATA.map((cat, idx) => {
             const isSelected = selectedCategory === cat.slug;
             return (
               <div
                 key={cat.id}
                 onClick={() => onSelectCategory(cat.slug)}
-                className="nn-card"
+                className={`nn-card ${idx >= 4 && !showAll ? 'mobile-hide-item' : ''}`}
                 style={{
                   cursor: 'pointer',
                   overflow: 'hidden',
@@ -136,9 +135,9 @@ export function CategorySection({ onSelectCategory, selectedCategory }) {
           })}
         </div>
 
-        {/* Centered Read More / Show More Button */}
+        {/* Centered Read More / Show More Button (Mobile only) */}
         {CATEGORIES_DATA.length > 4 && (
-          <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', marginTop: '28px', width: '100%' }}>
+          <div className="mobile-read-more-wrapper" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', marginTop: '28px', width: '100%' }}>
             <button
               onClick={() => setShowAll(!showAll)}
               className="btn-secondary"

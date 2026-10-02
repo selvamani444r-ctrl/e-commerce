@@ -4,7 +4,6 @@ import { EDITORIAL_ARTICLES } from '../data/mockData';
 
 export function BuyingGuidesSection({ onOpenArticle }) {
   const [showAll, setShowAll] = useState(false);
-  const displayedArticles = showAll ? EDITORIAL_ARTICLES : EDITORIAL_ARTICLES.slice(0, 4);
 
   return (
     <section style={{ padding: '56px 0', background: 'var(--bg-body)', width: '100%', overflow: 'hidden' }}>
@@ -32,11 +31,11 @@ export function BuyingGuidesSection({ onOpenArticle }) {
           gap: '24px',
           width: '100%'
         }}>
-          {displayedArticles.map(article => (
+          {EDITORIAL_ARTICLES.map((article, idx) => (
             <article
               key={article.id}
               onClick={() => onOpenArticle(article)}
-              className="nn-card"
+              className={`nn-card ${idx >= 4 && !showAll ? 'mobile-hide-item' : ''}`}
               style={{
                 cursor: 'pointer',
                 borderRadius: '18px',
@@ -106,9 +105,9 @@ export function BuyingGuidesSection({ onOpenArticle }) {
           ))}
         </div>
 
-        {/* Centered Read More / Show More Button */}
+        {/* Centered Read More / Show More Button (Mobile only) */}
         {EDITORIAL_ARTICLES.length > 4 && (
-          <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', marginTop: '32px', width: '100%' }}>
+          <div className="mobile-read-more-wrapper" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', marginTop: '32px', width: '100%' }}>
             <button
               onClick={() => setShowAll(!showAll)}
               className="btn-secondary"

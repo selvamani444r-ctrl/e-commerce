@@ -31,7 +31,6 @@ export function DealsSection({
 
   // Flash deals & heavy discount products
   const allDeals = products.filter(p => p.isFlashSale || parseInt(p.discount) >= 25);
-  const dealProducts = showAll ? allDeals : allDeals.slice(0, 4);
 
   return (
     <section id="todays-deals-section" style={{
@@ -130,14 +129,14 @@ export function DealsSection({
           gap: '20px',
           width: '100%'
         }}>
-          {dealProducts.map(product => {
+          {allDeals.map((product, idx) => {
             const bestMerchant = product.merchants?.find(m => m.isBestPrice) || product.merchants?.[0];
             const claimedPercent = Math.min(94, Math.max(45, (product.id.length * 7) % 95));
 
             return (
               <div
                 key={product.id}
-                className="nn-card"
+                className={`nn-card ${idx >= 4 && !showAll ? 'mobile-hide-item' : ''}`}
                 style={{
                   padding: '16px',
                   display: 'flex',
@@ -246,9 +245,9 @@ export function DealsSection({
           })}
         </div>
 
-        {/* Centered Read More / Show More Button */}
+        {/* Centered Read More / Show More Button (Mobile only) */}
         {allDeals.length > 4 && (
-          <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', marginTop: '32px', width: '100%' }}>
+          <div className="mobile-read-more-wrapper" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', marginTop: '32px', width: '100%' }}>
             <button
               onClick={() => setShowAll(!showAll)}
               className="btn-secondary"
